@@ -52,8 +52,9 @@ public class GA extends Gene{
                 new_population.add(c2);
             }
             nextGen = replace(population, new_population);
+            population = nextGen;
         }
-        return nextGen.getFirst();
+        return !nextGen.isEmpty() ? nextGen.get(0) : new ChromosomE();
     }
 
 }

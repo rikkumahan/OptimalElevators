@@ -112,7 +112,7 @@ public class Gene {
         ChromosomE mutate = chromo.copy();
         for(int i=0;i<mutate.genes.size();i++){
             if(Math.random() < Pm){
-                mutate.genes.set(i,"car"+(rand.nextInt(M)));
+                mutate.genes.set(i,"car"+(rand.nextInt(M)+1));
             }
         }
         return mutate;

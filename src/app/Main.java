@@ -22,24 +22,26 @@ public class Main {
         for (Car car : cars) {
 
             if (!car.stops.isEmpty()) {
-                int targetFloor = car.stops.getFirst();
+                int targetFloor = car.stops.get(0);
                 int currentFloor = Integer.parseInt(car.c_state.replaceAll("[^0-9]",""));
                 String car_dir = car.c_state.replaceAll("[^A-Z]","");
                 long t = System.currentTimeMillis();
 
                 if (currentFloor < targetFloor){
+                    car.c_state = currentFloor + "U";
                     if((t - car.time)>=TIME_PER_FLOOR){
                         currentFloor++;
                         car.time = t;
-                        car.c_state = currentFloor+car_dir;
+                        car.c_state = currentFloor + "U";
 
                     }
                 }
                 else if (currentFloor > targetFloor){
+                    car.c_state = currentFloor + "D";
                     if((t-car.time)>=TIME_PER_FLOOR) {
                         currentFloor--;
                         car.time = t;
-                        car.c_state = currentFloor + car_dir;
+                        car.c_state = currentFloor + "D";
 
                     }
                 }
@@ -47,7 +49,7 @@ public class Main {
                     if((t-car.time)>=STOP_DELAY) {
                         car.stops.remove(0);
                         car.time = t;
-                        System.out.println("Elevator "+car.name+" reached "+targetFloor+"at "+(int)((start - t) / 1000)+" sec.(passenger waited "+(int)(start-t-car.time)/1000+" sec)");
+                        System.out.println("Elevator "+car.name+" reached "+targetFloor+" at "+(int)((t - start) / 1000)+" sec (passenger waited "+(int)(t-car.time)/1000+" sec)");
                         int randomTarget = (int)(Math.random() * NF); // say 15 floors
                         car.stops.add(randomTarget);
                         System.out.println("Passenger inside Elevator " + car.name + " pressed " + randomTarget);
@@ -55,7 +57,7 @@ public class Main {
                 }
             }
             else{
-                car.c_state = car.c_state+"\bI";
+                car.c_state = car.c_state.replaceAll("[A-Z]", "I");
             }
         }
     }
@@ -93,9 +95,8 @@ public class Main {
                        try {
                            HallCall hc = new HallCall(input, System.currentTimeMillis());
                            g.calls.add(hc);
-                           long time = (int) (System.currentTimeMillis() - s_time) / 1000;
-                           hc.requestTime = time;
-                           System.out.println("Hall call received at floor " + input + "\b (time -> " + time + " s)");
+                           long time = (System.currentTimeMillis() - s_time) / 1000;
+                           System.out.println("Hall call received at floor " + input + " (time -> " + time + " s)");
                        }
                        catch(Exception e){
                            e.printStackTrace();
@@ -108,10 +109,16 @@ public class Main {
         inputThread.setDaemon(true);
         inputThread.start();
         while(running){
-            if(g.calls != null) {
+            if(g.calls != null && !g.calls.isEmpty()) {
                 ChromosomE best = g.Genetic_Algo();
                 applyAssignments(best, g.cars, g.calls);
                 updateCarPositions(g.cars, g.calls, NF, s_time);
+            }
+            try {
+                Thread.sleep(100); // Small delay to prevent excessive CPU usage
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
             }
         }
     }
