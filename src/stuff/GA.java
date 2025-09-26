@@ -53,6 +53,7 @@ public class GA extends Gene{
             }
             nextGen = replace(population, new_population);
         }
+        population.clear();
         return nextGen.getFirst();
     }
 

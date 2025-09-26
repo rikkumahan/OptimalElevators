@@ -45,7 +45,7 @@ public class Main {
                 }
                 else {
                     if((t-car.time)>=STOP_DELAY) {
-                        car.stops.remove(0);
+                        car.stops.removeFirst();
                         car.time = t;
                         System.out.println("Elevator "+car.name+" reached "+targetFloor+"at "+(int)((start - t) / 1000)+" sec.(passenger waited "+(int)(start-t-car.time)/1000+" sec)");
                         int randomTarget = (int)(Math.random() * NF); // say 15 floors
@@ -81,8 +81,8 @@ public class Main {
 
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-        int M = sc.nextInt(),NF=sc.nextInt();
-        GA g = new GA(M,NF);
+        int NF = sc.nextInt(),M=sc.nextInt();
+        GA g = new GA(NF,M);
         g.cars = initcars(M,NF);
         long s_time = System.currentTimeMillis();
         Thread inputThread = new Thread(()->{
@@ -91,10 +91,10 @@ public class Main {
                    String input = sc.nextLine().trim();
                    if(!input.isEmpty()) {
                        try {
-                           HallCall hc = new HallCall(input, System.currentTimeMillis());
+                           long time = (System.currentTimeMillis() - s_time) / 1000;
+                           HallCall hc = new HallCall(input, time);
                            g.calls.add(hc);
-                           long time = (int) (System.currentTimeMillis() - s_time) / 1000;
-                           hc.requestTime = time;
+                           //hc.requestTime = time;
                            System.out.println("Hall call received at floor " + input + "\b (time -> " + time + " s)");
                        }
                        catch(Exception e){
