@@ -23,14 +23,15 @@ public class Gene {
     }
 
     public void Generate() {
+        population.clear(); // Clear existing population
         for (int i = 0; i < size; i++) {
             ChromosomE chromo = new ChromosomE();
-            for (int j=0;j<calls.size();j++) {
+            for (int j = 0; j < calls.size(); j++) {
                 int r = rand.nextInt(M) + 1;
                 String CarId = "car" + r;
                 chromo.genes.add(CarId);
             }
-            population.add(i,chromo);
+            population.add(chromo);
         }
     }
 

@@ -66,19 +66,23 @@ public class Main {
 
     static void applyAssignments(ChromosomE chrom, List<Car> cars, ArrayList<HallCall> calls) {
         int i = 0;
+        ArrayList<HallCall> callsToRemove = new ArrayList<>();
         for (HallCall call : calls) {
-            if(i<chrom.genes.size()) {
+            if(i < chrom.genes.size()) {
                 String carIdStr = chrom.genes.get(i);
                 int carId = Integer.parseInt(carIdStr.replaceAll("[^0-9]", "")) - 1; // convert to index
-                call.CarId = carIdStr;
-                int floor = Integer.parseInt(call.HC.replaceAll("[^0-9]", ""));
-                cars.get(carId).stops.add(floor);
-                System.out.println(carIdStr + " assigned to floor " + floor);
+                if(carId >= 0 && carId < cars.size()) {
+                    call.CarId = carIdStr;
+                    int floor = Integer.parseInt(call.HC.replaceAll("[^0-9]", ""));
+                    cars.get(carId).stops.add(floor);
+                    System.out.println(carIdStr + " assigned to floor " + floor);
+                    callsToRemove.add(call);
+                }
                 i++;
             }
         }
-
-
+        // Remove processed calls
+        calls.removeAll(callsToRemove);
     }
 
     public static void main(String[] args){
@@ -109,11 +113,18 @@ public class Main {
         inputThread.setDaemon(true);
         inputThread.start();
         while(running){
-            if(g.calls != null && !g.calls.isEmpty()) {
+            boolean hasActiveCalls = g.calls != null && !g.calls.isEmpty();
+            
+            if(hasActiveCalls) {
                 ChromosomE best = g.Genetic_Algo();
-                applyAssignments(best, g.cars, g.calls);
-                updateCarPositions(g.cars, g.calls, NF, s_time);
+                if (!best.genes.isEmpty()) {
+                    applyAssignments(best, g.cars, g.calls);
+                }
             }
+            
+            // Always update car positions
+            updateCarPositions(g.cars, g.calls, NF, s_time);
+            
             try {
                 Thread.sleep(100); // Small delay to prevent excessive CPU usage
             } catch (InterruptedException e) {

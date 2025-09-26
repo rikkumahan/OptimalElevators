@@ -9,10 +9,10 @@ public class GA extends Gene{
         super(NF, M);
     }
     public ChromosomE Genetic_Algo() {
-        //Scanner sc = new Scanner(System.in);
-        //int NF = sc.nextInt();
-        //int M = sc.nextInt();
-        //Gene g = new Gene(NF, M);
+        // Don't run genetic algorithm if there are no calls
+        if (calls.isEmpty()) {
+            return new ChromosomE();
+        }
 
         //Initialize.
         Generate();
