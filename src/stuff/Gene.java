@@ -23,14 +23,15 @@ public class Gene {
     }
 
     public void Generate() {
+        population.clear();
         for (int i = 0; i < size; i++) {
             ChromosomE chromo = new ChromosomE();
-            for (int j=0;j<calls.size();j++) {
+            for (int j=0; j<calls.size(); j++) {
                 int r = rand.nextInt(M) + 1;
                 String CarId = "car" + r;
                 chromo.genes.add(CarId);
             }
-            population.add(i,chromo);
+            population.add(chromo);
         }
     }
 
@@ -56,6 +57,7 @@ public class Gene {
             if (carDir.equals("U") && stop > F && stop < H) {
                 count++;
             } else if (carDir.equals("D") && stop < F && stop > H) {
+                count++;
                 count++;
             }
         }
@@ -112,7 +114,7 @@ public class Gene {
         ChromosomE mutate = chromo.copy();
         for(int i=0;i<mutate.genes.size();i++){
             if(Math.random() < Pm){
-                mutate.genes.set(i,"car"+(rand.nextInt(M)));
+                mutate.genes.set(i,"car"+(rand.nextInt(M)+1));
             }
         }
         return mutate;

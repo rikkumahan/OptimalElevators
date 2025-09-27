@@ -9,11 +9,7 @@ public class GA extends Gene{
         super(NF, M);
     }
     public ChromosomE Genetic_Algo() {
-        //Scanner sc = new Scanner(System.in);
-        //int NF = sc.nextInt();
-        //int M = sc.nextInt();
-        //Gene g = new Gene(NF, M);
-
+        if(calls.isEmpty()) return new ChromosomE();
         //Initialize.
         Generate();
 
@@ -53,8 +49,8 @@ public class GA extends Gene{
             }
             nextGen = replace(population, new_population);
         }
-        population.clear();
-        return nextGen.getFirst();
+        //return nextGen.getFirst();
+        return !nextGen.isEmpty() ? nextGen.get(0) : new ChromosomE();
     }
 
 }
