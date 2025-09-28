@@ -17,7 +17,7 @@ public class Main {
     static volatile boolean running = true;
 
     static void updateCarPositions(List<Car> cars,int NF,long start) {
-        long TIME_PER_FLOOR = 1000; // 2 sec travel per floor
+        long TIME_PER_FLOOR = 1000; // 1 sec travel per floor
         long STOP_DELAY = 4000;     // 4 sec wait at floor
         for (Car car : cars) {
 
@@ -45,7 +45,7 @@ public class Main {
                 else {
                     if((t-car.time)>=STOP_DELAY) {
                         car.stops.removeFirst();
-                        int reach = ((int)((t-start)/1000)-3)<=0 ? (int)((t-start)/1000) : (int)((t-start)/1000)-3;
+                        //int reach = ((int)((t-start)/1000)-3)<=0 ? (int)((t-start)/1000) : (int)((t-start)/1000)-3;
                         int wait = (int)((t-start)-car.req_times.get(0))/1000-3 <= 0 ? (int)((t-start)-car.req_times.get(0))/1000 : (int)((t-start)-car.req_times.get(0))/1000-3 ;
                         System.out.println("Elevator "+car.name+" reached "+targetFloor+" at "+(int)(t-start)/1000+" sec."+"[Arrived floor "+ targetFloor +" in "+wait+" sec]");
                         car.req_times.removeFirst();
@@ -153,7 +153,7 @@ public class Main {
             }
             updateCarPositions(g.cars,NF,s_time);
             try{
-                Thread.sleep(100);
+                Thread.sleep(200);
             }
             catch(InterruptedException e){
                 Thread.currentThread().interrupt();
