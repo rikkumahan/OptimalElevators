@@ -55,10 +55,11 @@ Fitness = Σ(Travel_Time + Stop_Delays + Request_Age)
 
 ### Installation & Run
 ```bash
-git clone https://github.com/yourusername/elevator-ga-system
-cd elevator-ga-system
-javac -d bin src/app/Main.java src/stuff/*.java
-java -cp bin app.Main
+git clone https://github.com/rikkumahan/OptimalElevators.git
+cd OptimalElevators
+
+javac ElevatorSystem.java
+java ElevatorSystem
 ```
 
 ### Usage
