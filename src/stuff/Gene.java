@@ -8,7 +8,7 @@ public class Gene {
     int M;
     int size = 50, Generations = 100;
     double Pc = 0.7, Pm = 0.01;
-    double Tf = 2, Ts = 4; //interfloor time , stop time.
+    double Tf = 1, Ts = 4; //interfloor time , stop time.
     ArrayList<ChromosomE> population;
     public ArrayList<HallCall> calls;
     public ArrayList<Car> cars;
