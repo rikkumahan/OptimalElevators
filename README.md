@@ -69,20 +69,28 @@ java -cp bin app.Main
 
 ### Example Session
 ```
-Enter the no.of Floors : 10
-Enter the no.of Elevators : 3
+Enter the no.of Floors : 20
+Enter the no.of Elevators : 4
 Input Hall calls here in the format (6U / 6D).
-
-6U
-Hall call received at floor 6U (time -> 0 s)
-car2 assigned to floor 6
-
+4U
+Hall call received at floor 4U (time -> 7 s)
+car2 assigned to floor 4
+Elevator car2 reached 4 at 12 sec.[Arrived floor 4 in 1 sec]
+Passenger inside Elevator car2 pressed 12
+1D
+Hall call received at floor 1D (time -> 23 s)
+car1 assigned to floor 1
+Elevator car2 reached 12 at 24 sec.[Arrived floor 12 in 9 sec]
+Elevator car1 reached 1 at 28 sec.[Arrived floor 1 in 1 sec]
+Passenger inside Elevator car1 pressed 0
+Elevator car1 reached 0 at 33 sec.[Arrived floor 0 in 2 sec]
 status
 Current state of car1 is 0I
-Current state of car2 is 1U  
-Current state of car3 is 6I
-
+Current state of car2 is 12I
+Current state of car3 is 10I
+Current state of car4 is 15I
 exit
+
 ```
 
 ## 📈 Performance Benchmarks
