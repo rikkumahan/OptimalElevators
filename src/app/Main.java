@@ -45,7 +45,6 @@ public class Main {
                 else {
                     if((t-car.time)>=STOP_DELAY) {
                         car.stops.removeFirst();
-                        //int reach = ((int)((t-start)/1000)-3)<=0 ? (int)((t-start)/1000) : (int)((t-start)/1000)-3;
                         int wait = (int)((t-start)-car.req_times.get(0))/1000-3 <= 0 ? (int)((t-start)-car.req_times.get(0))/1000 : (int)((t-start)-car.req_times.get(0))/1000-3 ;
                         System.out.println("Elevator "+car.name+" reached "+targetFloor+" at "+(int)(t-start)/1000+" sec."+"[Arrived floor "+ targetFloor +" in "+wait+" sec]");
                         car.req_times.removeFirst();
