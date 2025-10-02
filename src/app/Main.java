@@ -45,14 +45,14 @@ public class Main {
                 else {
                     if((t-car.time)>=STOP_DELAY) {
                         car.stops.removeFirst();
-                        int wait = (int)((t-start)-car.req_times.get(0))/1000-3 <= 0 ? (int)((t-start)-car.req_times.get(0))/1000 : (int)((t-start)-car.req_times.get(0))/1000-3 ;
-                        System.out.println("Elevator "+car.name+" reached "+targetFloor+" at "+(int)(t-start)/1000+" sec."+"[Arrived floor "+ targetFloor +" in "+wait+" sec]");
+                        //int wait = (int)((t-start)-car.req_times.get(0))/1000-3 <= 0 ? (int)((t-start)-car.req_times.get(0))/1000 : (int)((t-start)-car.req_times.get(0))/1000-3 ;
+                        System.out.println("Elevator "+car.name+" reached "+targetFloor+" at "+(int)(t-start)/1000+" sec."+"[Waited in floor "+ targetFloor +" for "+(int)((t-start)-car.req_times.get(0))/1000+" sec]");
                         car.req_times.removeFirst();
                         car.time =t;
 
                         if(car.pick_call){
                             int randomTarget;
-                            boolean isUp = car.call_dir.equals("U");
+                            boolean isUp = car.call_dir.equalsIgnoreCase("U");
                             if(isUp){
                                 if(targetFloor < NF-1){
                                     randomTarget = targetFloor + 1 + (int)(Math.random() * (NF - targetFloor - 1));
