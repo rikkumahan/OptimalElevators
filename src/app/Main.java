@@ -1,11 +1,9 @@
 package app;
 import stuff.*;
-
 import java.lang.*;
 import java.util.*;
 
 public class Main {
-
     static ArrayList<Car> initcars(int M, int NF){
         ArrayList<Car> cars = new ArrayList<>();
         for(int i=1;i<=M;i++){
@@ -13,25 +11,20 @@ public class Main {
         }
         return cars;
     }
-
     static volatile boolean running = true;
-
     static void updateCarPositions(List<Car> cars,int NF,long start) {
         long TIME_PER_FLOOR = 1000; // 1 sec travel per floor
         long STOP_DELAY = 4000;     // 4 sec wait at floor
         for (Car car : cars) {
-
             if (!car.stops.isEmpty()) {
                 int targetFloor = car.stops.get(0);
                 int currentFloor = Integer.parseInt(car.c_state.replaceAll("[^0-9]",""));
                 long t = System.currentTimeMillis();
-
                 if (currentFloor < targetFloor){
                     if((t - car.time)>=TIME_PER_FLOOR){
                         currentFloor++;
                         car.time = t;
                         car.c_state = currentFloor+"U";
-
                     }
                 }
                 else if (currentFloor > targetFloor){
@@ -46,10 +39,9 @@ public class Main {
                     if((t-car.time)>=STOP_DELAY) {
                         car.stops.removeFirst();
                         //int wait = (int)((t-start)-car.req_times.get(0))/1000-3 <= 0 ? (int)((t-start)-car.req_times.get(0))/1000 : (int)((t-start)-car.req_times.get(0))/1000-3 ;
-                        System.out.println("Elevator "+car.name+" reached "+targetFloor+" at "+(int)(t-start)/1000+" sec."+"[Waited in floor "+ targetFloor +" for "+(int)((t-start)-car.req_times.get(0))/1000+" sec]");
+                        System.out.println("Elevator "+car.name+" reached "+targetFloor+" at "+(int)(t-start)/1000+" sec."+"[Waited"+" for "+(int)((t-start)-car.req_times.get(0))/1000+" sec]");
                         car.req_times.removeFirst();
                         car.time =t;
-
                         if(car.pick_call){
                             int randomTarget;
                             boolean isUp = car.call_dir.equalsIgnoreCase("U");
@@ -79,7 +71,6 @@ public class Main {
             }
         }
     }
-
     static void applyAssignments(ChromosomE chrom, List<Car> cars, ArrayList<HallCall> calls) {
         int i = 0;
         ArrayList<HallCall> callsToRemove = new ArrayList<>();
@@ -93,7 +84,7 @@ public class Main {
                     cars.get(carId).stops.add(floor);
                     cars.get(carId).req_times.add(call.requestTime);
                     cars.get(carId).pick_call = true;
-                    cars.get(carId).call_dir = call.HC.endsWith("U") ? "U" : "D";
+                    cars.get(carId).call_dir = call.HC.replaceAll("[a-zA-Z]","");
                     System.out.println(carIdStr + " assigned to floor " + floor);
                     callsToRemove.add(call);
                 }
@@ -102,7 +93,6 @@ public class Main {
         }
         calls.removeAll(callsToRemove);
     }
-
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the no.of Floors : ");

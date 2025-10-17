@@ -21,7 +21,6 @@ public class Gene {
         calls = new ArrayList<>();
         cars = new ArrayList<>();
     }
-
     public void Generate() {
         population.clear();
         for (int i = 0; i < size; i++) {
@@ -34,29 +33,26 @@ public class Gene {
             population.add(chromo);
         }
     }
-
     int calc_wait(Car CAR, HallCall HCi) {
         int time = 0, count = 0;
         String carDir = CAR.c_state.replaceAll("[^A-Za-z]", "");
         String hallDir = HCi.HC.replaceAll("[^A-Za-z]", "");
         int F = Integer.parseInt(CAR.c_state.replaceAll("[^0-9]", ""));
         int H = Integer.parseInt(HCi.HC.replaceAll("[^0-9]", ""));
-
         boolean feasible = false;
         if (carDir.equals("I")) feasible = true;
-        else if (carDir.equals("U") && H >= F && hallDir.equals("U"))
+        else if (carDir.equalsIgnoreCase("U") && H >= F && hallDir.equalsIgnoreCase("U"))
             feasible = true;
-        else if (carDir.equals("D") && H <= F && hallDir.equals("D"))
+        else if (carDir.equalsIgnoreCase("D") && H <= F && hallDir.equalsIgnoreCase("D"))
             feasible = true;
-
         if (!feasible) {
             return Integer.MAX_VALUE;
         }
         time += (int) (Math.abs(F - H) * Tf); //travel time.
         for (int stop : CAR.stops) {
-            if (carDir.equals("U") && stop > F && stop < H) {
+            if (carDir.equalsIgnoreCase("U") && stop > F && stop < H) {
                 count++;
-            } else if (carDir.equals("D") && stop < F && stop > H) {
+            } else if (carDir.equalsIgnoreCase("D") && stop < F && stop > H) {
                 count++;
                 count++;
             }
@@ -65,7 +61,6 @@ public class Gene {
         time += (int) (System.currentTimeMillis() - HCi.requestTime); //(current - request)time.
         return time;
     }
-
     int Fitness_fnc(ChromosomE chromo, ArrayList<HallCall> hc, ArrayList<Car> cars) {
         int TWT = 0;
         if (chromo.genes.size() > hc.size()) return 9999;
@@ -79,7 +74,6 @@ public class Gene {
         }
         return TWT;
     }
-
     ChromosomE SelectParent() {
         Random rand = new Random();
         ChromosomE i = population.get(rand.nextInt(population.size()));
@@ -89,14 +83,11 @@ public class Gene {
         }
         return i;
     }
-
     ChromosomE[] crossover(ChromosomE p1, ChromosomE p2) {
         int n = p1.genes.size();
         ChromosomE child1 = new ChromosomE();
         ChromosomE child2 = new ChromosomE();
-
         int cut = (int)(Math.random() * n);
-
         for (int i = 0; i < n; i++) {
             if (i < cut) {
                 child1.genes.add(p1.genes.get(i));
@@ -106,10 +97,8 @@ public class Gene {
                 child2.genes.add(p1.genes.get(i));
             }
         }
-
         return new ChromosomE[]{child1, child2};
     }
-
     ChromosomE Mutate(ChromosomE chromo){
         ChromosomE mutate = chromo.copy();
         for(int i=0;i<mutate.genes.size();i++){
@@ -119,11 +108,9 @@ public class Gene {
         }
         return mutate;
     }
-
     ArrayList<ChromosomE> replace(ArrayList<ChromosomE> oldPop,ArrayList<ChromosomE> newPop){
         oldPop.sort(Comparator.comparingInt(c->c.fitness));
         newPop.sort(Comparator.comparingInt(c->c.fitness));
-
         ArrayList<ChromosomE> nextGeneration = new ArrayList<>();
         for (int i = 0; i < 2 && i < oldPop.size(); i++) {
             nextGeneration.add(oldPop.get(i));
@@ -135,6 +122,5 @@ public class Gene {
         nextGeneration.sort(Comparator.comparingInt(c->c.fitness));
         return nextGeneration;
     }
-
 }
 
