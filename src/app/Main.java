@@ -4,6 +4,7 @@ import java.lang.*;
 import java.util.*;
 
 public class Main {
+    static int sum=0,cnt=0;
     static ArrayList<Car> initcars(int M, int NF){
         ArrayList<Car> cars = new ArrayList<>();
         for(int i=1;i<=M;i++){
@@ -38,8 +39,9 @@ public class Main {
                 else {
                     if((t-car.time)>=STOP_DELAY) {
                         car.stops.removeFirst();
-                        //int wait = (int)((t-start)-car.req_times.get(0))/1000-3 <= 0 ? (int)((t-start)-car.req_times.get(0))/1000 : (int)((t-start)-car.req_times.get(0))/1000-3 ;
-                        System.out.println("Elevator "+car.name+" reached "+targetFloor+" at "+(int)(t-start)/1000+" sec."+"[Waited"+" for "+(int)((t-start)-car.req_times.get(0))/1000+" sec]");
+                        int wait = (int)((t-start)-car.req_times.get(0))/1000 ;
+                        System.out.println("Elevator "+car.name+" reached "+targetFloor+" at "+(int)(t-start)/1000+" sec."+"[Waited"+" for "+wait+" sec]");
+                        sum+=wait;
                         car.req_times.removeFirst();
                         car.time =t;
                         if(car.pick_call){
@@ -61,6 +63,7 @@ public class Main {
                             car.stops.add(randomTarget);
                             car.req_times.add(System.currentTimeMillis() - start);
                             System.out.println("Passenger inside Elevator " + car.name + " pressed " + randomTarget);
+                            cnt++;
                             car.pick_call = false;
                         }
                     }
@@ -86,12 +89,28 @@ public class Main {
                     cars.get(carId).pick_call = true;
                     cars.get(carId).call_dir = call.HC.replaceAll("[a-zA-Z]","");
                     System.out.println(carIdStr + " assigned to floor " + floor);
+                    cnt++;
                     callsToRemove.add(call);
                 }
                 i++;
             }
         }
         calls.removeAll(callsToRemove);
+    }
+    static void Status(ArrayList<Car> cars,int sum,int cnt){
+        System.out.print("-----------------------------------------------------------\n"+
+                         "|   Elevators   |        Stops      |    Current State    |\n"+
+                "-----------------------------------------------------------\n");
+        for(Car car : cars){
+            if(car.stops != null && !car.stops.isEmpty()) {
+                System.out.printf("|  %-12s |  %-16s |  %-18s |\n", car.name, String.join(", ",car.stops.stream().map(Object::toString).toList()), car.c_state);
+            }
+            else{
+                System.out.printf("|  %-12s |  %-16s |  %-18s |\n", car.name,"none", car.c_state);
+            }
+        }
+        System.out.print("-----------------------------------------------------------\n");
+        System.out.printf("Average Waiting Time : %.2f sec\n\n",(float)sum/cnt);
     }
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
@@ -110,10 +129,12 @@ public class Main {
                    if(!input.isEmpty()) {
                        try {
                            if(input.equalsIgnoreCase("status")){
-                               for(Car car: g.cars){
+                               /*for(Car car: g.cars){
                                    System.out.println("Current state of "+car.name+" is "+car.c_state);
-                               }
+                               }*/
+                               Status(g.cars,sum,cnt);
                            }
+
                            else if(input.equalsIgnoreCase("exit"))running = false;
                            else {
                                long time = (System.currentTimeMillis() - s_time);//check

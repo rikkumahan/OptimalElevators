@@ -1,7 +1,6 @@
 package stuff;
 
 import java.util.ArrayList;
-
 public class Car {
     public String name;//car1 , car2.
     public String c_state;// 6I,7U,7D
