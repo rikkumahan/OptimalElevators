@@ -70,27 +70,132 @@ java ElevatorSystem
 
 ### Example Session
 ```
-Enter the no.of Floors : 20
-Enter the no.of Elevators : 4
+Enter the no.of Floors : 15
+Enter the no.of Elevators : 3
 Input Hall calls here in the format (6U / 6D).
-4U
-Hall call received at floor 4U (time -> 7 s)
-car2 assigned to floor 4
-Elevator car2 reached 4 at 12 sec.[Arrived floor 4 in 1 sec]
-Passenger inside Elevator car2 pressed 12
-1D
-Hall call received at floor 1D (time -> 23 s)
-car1 assigned to floor 1
-Elevator car2 reached 12 at 24 sec.[Arrived floor 12 in 9 sec]
-Elevator car1 reached 1 at 28 sec.[Arrived floor 1 in 1 sec]
-Passenger inside Elevator car1 pressed 0
-Elevator car1 reached 0 at 33 sec.[Arrived floor 0 in 2 sec]
 status
-Current state of car1 is 0I
-Current state of car2 is 12I
-Current state of car3 is 10I
-Current state of car4 is 15I
-exit
+-----------------------------------------------------------
+|   Elevators   |        Stops      |    Current State    |
+-----------------------------------------------------------
+|  car1         |  none             |  0I                 |
+|  car2         |  none             |  5I                 |
+|  car3         |  none             |  10I                |
+-----------------------------------------------------------
+Average Waiting Time : NaN sec
+
+7D
+Hall call received at floor 7D (time -> 11 s)
+car2 assigned to floor 7
+5d
+Hall call received at floor 5d (time -> 14 s)
+car3 assigned to floor 5
+0Elevator car2 reached 7 at 16 sec.[Waited for 5 sec]
+Passenger inside Elevator car2 pressed 5
+u
+Hall call received at floor 0u (time -> 18 s)
+car1 assigned to floor 0
+Elevator car1 reached 0 at 18 sec.[Waited for 0 sec]
+Passenger inside Elevator car1 pressed 0
+status
+-----------------------------------------------------------
+|   Elevators   |        Stops      |    Current State    |
+-----------------------------------------------------------
+|  car1         |  0                |  0I                 |
+|  car2         |  5                |  5D                 |
+|  car3         |  5                |  5D                 |
+-----------------------------------------------------------
+Average Waiting Time : 1.00 sec
+
+Elevator car1 reached 0 at 22 sec.[Waited for 4 sec]
+Elevator car2 reached 5 at 22 sec.[Waited for 6 sec]
+Elevator car3 reached 5 at 23 sec.[Waited for 8 sec]
+Passenger inside Elevator car3 pressed 1
+Elevator car3 reached 1 at 31 sec.[Waited for 8 sec]
+status
+-----------------------------------------------------------
+|   Elevators   |        Stops      |    Current State    |
+-----------------------------------------------------------
+|  car1         |  none             |  0I                 |
+|  car2         |  none             |  5I                 |
+|  car3         |  none             |  1I                 |
+-----------------------------------------------------------
+Average Waiting Time : 5.17 sec
+
+0u
+Hall call received at floor 0u (time -> 41 s)
+car1 assigned to floor 0
+Elevator car1 reached 0 at 41 sec.[Waited for 0 sec]
+Passenger inside Elevator car1 pressed 0
+2uElevator car1 reached 0 at 45 sec.[Waited for 4 sec]
+
+Hall call received at floor 2u (time -> 45 s)
+car3 assigned to floor 2
+3u
+Hall call received at floor 3u (time -> 47 s)
+car3 assigned to floor 3
+Elevator car3 reached 2 at 49 sec.[Waited for 4 sec]
+Passenger inside Elevator car3 pressed 0
+status
+-----------------------------------------------------------
+|   Elevators   |        Stops      |    Current State    |
+-----------------------------------------------------------
+|  car1         |  none             |  0I                 |
+|  car2         |  none             |  5I                 |
+|  car3         |  3, 0             |  3U                 |
+-----------------------------------------------------------
+Average Waiting Time : 3.55 sec
+
+Elevator car3 reached 3 at 54 sec.[Waited for 7 sec]
+Elevator car3 reached 0 at 61 sec.[Waited for 12 sec]
+15d
+Hall call received at floor 15d (time -> 65 s)
+car2 assigned to floor 15
+12u
+Hall call received at floor 12u (time -> 67 s)
+car2 assigned to floor 12
+status
+-----------------------------------------------------------
+|   Elevators   |        Stops      |    Current State    |
+-----------------------------------------------------------
+|  car1         |  none             |  0I                 |
+|  car2         |  15, 12           |  15U                |
+|  car3         |  none             |  0I                 |
+-----------------------------------------------------------
+Average Waiting Time : 4.46 sec
+
+Elevator car2 reached 15 at 78 sec.[Waited for 13 sec]
+Passenger inside Elevator car2 pressed 4
+status
+-----------------------------------------------------------
+|   Elevators   |        Stops      |    Current State    |
+-----------------------------------------------------------
+|  car1         |  none             |  0I                 |
+|  car2         |  12, 4            |  12D                |
+|  car3         |  none             |  0I                 |
+-----------------------------------------------------------
+Average Waiting Time : 5.07 sec
+
+Elevator car2 reached 12 at 85 sec.[Waited for 17 sec]
+status
+-----------------------------------------------------------
+|   Elevators   |        Stops      |    Current State    |
+-----------------------------------------------------------
+|  car1         |  none             |  0I                 |
+|  car2         |  4                |  4D                 |
+|  car3         |  none             |  0I                 |
+-----------------------------------------------------------
+Average Waiting Time : 6.29 sec
+
+Elevator car2 reached 4 at 97 sec.[Waited for 19 sec]
+status
+-----------------------------------------------------------
+|   Elevators   |        Stops      |    Current State    |
+-----------------------------------------------------------
+|  car1         |  none             |  0I                 |
+|  car2         |  none             |  4I                 |
+|  car3         |  none             |  0I                 |
+-----------------------------------------------------------
+Average Waiting Time : 7.64 sec
 
 ```
 
