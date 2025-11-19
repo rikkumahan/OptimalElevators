@@ -1,14 +1,12 @@
-# Elevator Control System with Genetic Algorithm
+# Smart Elevator Control System (uses->Genetic Algorithm)
 
 An intelligent elevator dispatch system that uses genetic algorithms to optimize elevator assignments and minimize passenger waiting times.
 
 ## 🚀 Features
 
-- **Smart Dispatching**: Genetic algorithm optimizes elevator assignments for multiple hall calls
-- **Real-time Simulation**: Live elevator movement with accurate timing and positioning  
-- **Multi-objective Optimization**: Minimizes waiting time while ensuring service fairness
-- **Interactive Interface**: Command-line interface for hall calls and system monitoring
-- **Scalable Design**: Supports multiple elevators and floors with configurable parameters
+- **Smart Dispatching**: Genetic algorithm optimizes elevator assignments for multiple hall calls.
+- **Real-time Simulation**: Live elevator movement with accurate timing and positioning.
+- **Waiting Time Optimization**: Minimizes waiting time while ensuring service fairness.
 
 ## 📊 Performance
 
@@ -46,21 +44,6 @@ Fitness = Σ(Travel_Time + Stop_Delays + Request_Age)
 - Prevent request starvation
 - Balance elevator utilization
 - Ensure directional efficiency
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Java 8 or higher
-- Command line interface
-
-### Installation & Run
-```bash
-git clone https://github.com/rikkumahan/OptimalElevators.git
-cd OptimalElevators
-
-javac ElevatorSystem.java
-java ElevatorSystem
-```
 
 ### Usage
 1. **Configure System**: Enter number of floors and elevators
@@ -219,22 +202,6 @@ double Tf = 1;           // Inter-floor travel time (seconds)
 double Ts = 4;           // Stop duration (seconds)
 ```
 
-## 🛠️ Technical Details
-
-**Time Complexity:** O(G × P × C × E) where G=generations, P=population, C=calls, E=elevators
-
-**Space Complexity:** O(P × C) for chromosome storage
-
-**Real-time Performance:** 100ms simulation cycles with <200ms GA response time
-
-## 🔮 Future Enhancements
-
-- [ ] Capacity constraints and load balancing
-- [ ] Energy consumption optimization
-- [ ] Traffic pattern prediction with ML
-- [ ] Multi-building support
-- [ ] Web-based monitoring interface
-- [ ] Integration with IoT sensors
 
 ## 📝 Algorithm Workflow
 
@@ -244,24 +211,9 @@ double Ts = 4;           // Stop duration (seconds)
 4. **Selection**: Tournament selection of parent solutions
 5. **Crossover & Mutation**: Generate new assignment combinations
 6. **Optimization**: Evolve population over 100 generations
-7. **Assignment**: Deploy best solution to elevator fleet
+7. **Assignment**: Deploy the best solution to the elevator fleet
 8. **Simulation**: Update elevator positions and handle passengers
 
-## 📊 System Metrics
-
-- **Response Time**: <200ms for assignment decisions
-- **Throughput**: 12-15 calls/minute sustained capacity
-- **Accuracy**: 99.9% positioning precision
-- **Fairness**: Prevents call starvation with age-based priority
-- **Efficiency**: 78-82% elevator utilization rate
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 ## 🙏 Acknowledgments
 
